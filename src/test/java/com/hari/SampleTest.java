@@ -43,7 +43,7 @@ public class SampleTest {
   }
 
   @Test
-//  @Disabled("Disabled this for a time being")
+  @Disabled("Disabled this for a time being")
   public void getTest2() {
     RestAssured.baseURI = "https://reqres.in";
     RestAssured.basePath = "/api";
@@ -68,7 +68,7 @@ public class SampleTest {
   }
 
   @Test
-  @Disabled("Disabled this for a time being")
+//  @Disabled("Disabled this for a time being")
   public void postTest() throws JsonProcessingException {
     RestAssured.baseURI = "https://reqres.in";
     RestAssured.basePath = "/api";
@@ -89,7 +89,8 @@ public class SampleTest {
     RequestSpecification request= RestAssured.given();
 //    Response res  = request.body(user).header("Content-Type", "application/json").post("/users");
 //    Response res  = request.body(user).contentType("application/json").post("/users");
-    Response res  = request.body(postReqJson).contentType("application/json").post("/users");
+    request = request.body(postReqJson).contentType("application/json");
+    Response res  = request.post("/users");
     System.out.println("post response= "+ res.getBody().asString());
     assertEquals(201, res.getStatusCode());
     UserPostResp userPostResp = res.getBody().as(UserPostResp.class);
